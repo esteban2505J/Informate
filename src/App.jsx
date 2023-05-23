@@ -1,6 +1,7 @@
 import preguntas  from "./preguntas";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
       return [];
     }
   }
-
+  const location = useLocation();
+  const currentPath = location.pathname;
   const navigate = useNavigate();
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuacion, setPuntuacion] = useState(0);
@@ -23,8 +25,24 @@ function App() {
   const [User,setUser] = useState(getData());
 
  
+  
 
   function handleAnswerSubmit(isCorrect, e){
+    const setIsloggedin = ()=>{
+      const location = useLocation();
+      const currentPath = location.pathname;
+      if (currentPath !== "/Home" || currentPath!=="/Game") {
+        let updateScore = User.map((user)=>{
+          if (user.Isloggedin) {
+            user.Isloggedin = false;
+            localStorage.setItem("Users",JSON.stringify(User));
+          }
+        })
+      }
+    } 
+
+    console.log(currentPath);
+    
     if (isCorrect) {
       setPuntuacion(puntuacion+1);
       setScore(score+100);
@@ -51,7 +69,12 @@ function App() {
   },[tiempoRestante]);
 
   if (isFinished) {
-    localStorage.setItem("Score",JSON.stringify(score));
+    let updateScore = User.map((user)=>{
+      if (user.Isloggedin) {
+        user.Score = score;
+        localStorage.setItem("Users",JSON.stringify(User));
+      }
+    })
     return(
       <main className="app">
         <div className="juego-terminado">

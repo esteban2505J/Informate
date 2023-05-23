@@ -45,7 +45,7 @@ function CheckIn(){
           let b = document.querySelector("#bnt-submit").className = "w-full my-5 py-2 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg bg-green-600";
   
           setTimeout(() => {
-            if(confirm("Tu cuenta ha sido creada con exito")) navigate('/')
+            if(confirm("Tu cuenta ha sido creada con exito")) navigate('/');
           }, 1000);
         }
       

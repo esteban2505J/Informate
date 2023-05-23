@@ -4,8 +4,6 @@ import {BrowserRouter, Link , useNavigate} from 'react-router-dom';
 
 
 
-
-
  function Principal() {
 
     const getData = ()=>{
@@ -24,12 +22,12 @@ import {BrowserRouter, Link , useNavigate} from 'react-router-dom';
   const navigate = useNavigate();
 
   const handleSubmit = async (e)=>{
-    e.preventDefault()
-
+    e.preventDefault();
     let exist = User.map((user)=>{
 
       if(Username!== '' && user.Username === Username && user.Pasword === Pasword && Pasword !== ''){
-        localStorage.setItem("Isloggedin", true);
+        user.Isloggedin = true;
+        localStorage.setItem("Users",JSON.stringify(User));
         setExist(true);
         let btn = document.querySelector("#btn-submit").className +="bg-red-600";
       
@@ -45,11 +43,11 @@ import {BrowserRouter, Link , useNavigate} from 'react-router-dom';
         if(confirm("¿quieres volver a intentarlo?")) window.location.reload(true);
       }, 1000);
     }
-    
-  }
+    }
+  
 
   
-  return (
+return (
         <div className='bg-gray-800 flex flex-col justify-center'>
             <form 
             className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8'
